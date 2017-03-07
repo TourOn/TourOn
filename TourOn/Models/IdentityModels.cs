@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TourOn.Models
 {
@@ -16,6 +18,36 @@ namespace TourOn.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //links account type to application user
+        public virtual AccountType AccountType { get; set; }
+
+        //links region to application user
+        public virtual Region Region { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Description { get; set; }
+
+        //links genre to application user
+        public virtual Genre Genre { get; set; }
+
+        [Required]
+        [Phone]
+        public string Phone { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string PublicEmail { get; set; }
+
+        //other websites
+        public string OtherContacts { get; set; }
+
+        //links comments and pictures to application user
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Picture> Pictures { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
