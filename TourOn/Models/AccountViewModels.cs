@@ -64,6 +64,12 @@ namespace TourOn.Models
 
     public class RegisterViewModel
     {
+        public VenueRegisterViewModel VenueRegisterModel { get; set; }
+        public BandRegisterViewModel BandRegisterViewModel { get; set; }
+    }
+
+    public class VenueRegisterViewModel
+    {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,6 +85,83 @@ namespace TourOn.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Venue Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Street")]
+        public string Street { get; set; }
+
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Required]
+        [Display(Name = "State")]
+        public string State { get; set; }
+
+        [Required]
+        [Display(Name = "Zip Code")]
+        public int Zip { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
+
+        [Required]
+        [Display(Name = "Genre")]
+        public virtual Genre Genre { get; set; }
+
+        [Required]
+        [Display(Name = "Capacity")]
+        public int Capacity { get; set; }
+    }
+
+    public class BandRegisterViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Band Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Required]
+        [Display(Name = "State")]
+        public string State { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
+
+        [Required]
+        [Display(Name = "Genre")]
+        public virtual Genre Genre { get; set; }
+
+        [Required]
+        [Display(Name = "Band Size")]
+        public int Size { get; set; }
     }
 
     public class ResetPasswordViewModel
