@@ -19,14 +19,15 @@ namespace TourOn.Models
             return userIdentity;
         }
 
-        //links account type to application user
-        public virtual AccountType AccountType { get; set; }
+        [Required]
+        public bool IsBand { get; set; }
 
         //links region to application user
         public virtual Region Region { get; set; }
 
         [Required]
         public string Name { get; set; }
+
         [Required]
         public string Description { get; set; }
 
@@ -36,6 +37,12 @@ namespace TourOn.Models
         [Required]
         [Phone]
         public string Phone { get; set; }
+
+        [Required]
+        public string City { get; set; }
+
+        [Required]
+        public string State { get; set; }
 
         [Required]
         [EmailAddress]

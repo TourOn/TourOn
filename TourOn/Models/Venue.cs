@@ -6,26 +6,13 @@ using System.Web;
 
 namespace TourOn.Models
 {
-    public class Venue
+    public class Venue : ApplicationUser
     {
-        [Key]
-        public int VenueID { get; set; }
-
-        [Required]
         public string Street { get; set; }
-        [Required]
-        public string City { get; set; }
-        [Required]
         public int ZipCode { get; set; }
-        [Required]
-        public string State { get; set; }
-        [Required]
         public int Capacity { get; set; }
 
-        //links account type to application user
-        public virtual AccountType AccountType { get; set; }
 
-        //not required
         public string Parking { get; set; }
         public string Equipment { get; set; }
         
