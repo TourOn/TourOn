@@ -6,12 +6,14 @@ using System.Web;
 
 namespace TourOn.Models
 {
-    public class Genre
-    {
-        [Key]
-        public int GenreID { get; set; }
+	public class Genre
+	{
+		[Key]
+		public int GenreID { get; set; }
 
-        [Required]
-        public string GenreName { get; set; }
-    }
+		[Required]
+		public string GenreName { get; set; }
+
+		public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+	}
 }

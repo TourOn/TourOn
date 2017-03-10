@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -137,56 +134,92 @@ namespace TourOn.Controllers
 		//
 		// GET: /Account/Register
 		[AllowAnonymous]
-		public ActionResult Register()
+		public ActionResult RegisterBand()
 		{
 			var model = new RegisterViewModel();
 			return View(model);
 		}
 
 		//
-		// POST: /Account/Register
+		// POST: /Account/RegisterBand
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Register(RegisterViewModel model)
+		public async Task<ActionResult> RegisterBand(RegisterViewModel model)
 		{
+
 			if (ModelState.IsValid)
 			{
-				//initialize user so it will persist outside of conditionals
-				var user;
-				//check which form user filled out and set unique pertinent information for that account type
-				//for bands
-				if (model.FormType == "Band")
+				var user = new Band
 				{
-					user = new Band
-					{
-						user.AccountType = BandAccountType,
-						user.Size = model.Size,
-						user.Showcase = model.Showcase
-					};
-				}
-				//for venues
-				else if (model.FormType == "Venue")
+					AccountType = ApplicationUser.BandAccountType,
+					Size = model.Size,
+					Showcase = model.Showcase,
+					UserName = model.Email,
+					Email = model.Email,
+					Name = model.Name,
+					Phone = model.Phone,
+					PublicEmail = model.PublicEmail,
+					City = model.City,
+					State = model.State,
+					Genre = model.Genre,
+					Region = model.Region
+				};
+
+				var result = await UserManager.CreateAsync(user, model.Password);
+
+				if (result.Succeeded)
 				{
-					user = new Venue
-					{
-						user.AccountType = VenueAccountType,
-						user.Street = model.Street,
-						user.Zip = model.Zip,
-						user.Capacity = model.Capacity,
-						user.Equipment = model.Equipment,
-						user.Parking = model.Parking
-					};
+					await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+					// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+					// Send an email with this link
+					// string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+					// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+					// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+					return RedirectToAction("Index", "Home");
 				}
-				//generic information every account needs
-				user.UserName = model.Email;
-				user.Email = model.Email;
-				user.Name = model.Name;
-				user.Phone = model.Phone;
-				user.PublicEmail = model.PublicEmail;
-				user.City = model.City;
-				user.State = model.State;
-				user.Region = model.Region;
+			}
+			// If we got this far, something failed, redisplay form
+			return View(model);
+		}
+
+		// GET: /Account/Register
+		[AllowAnonymous]
+		public ActionResult RegisterVenue()
+		{
+			var model = new RegisterViewModel();
+			return View(model);
+		}
+
+		// POST: /Account/RegisterVenue
+		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> RegisterVenue(RegisterViewModel model)
+		{
+			//for venues
+			if (ModelState.IsValid)
+			{
+				var user = new Venue
+				{
+					AccountType = ApplicationUser.VenueAccountType,
+					Street = model.Street,
+					Zip = model.Zip,
+					Capacity = model.Capacity,
+					Equipment = model.Equipment,
+					Parking = model.Parking,
+					UserName = model.Email,
+					Email = model.Email,
+					Name = model.Name,
+					Phone = model.Phone,
+					PublicEmail = model.PublicEmail,
+					City = model.City,
+					State = model.State,
+					Genre = model.Genre,
+					Region = model.Region
+				};
 
 				var result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
@@ -201,7 +234,6 @@ namespace TourOn.Controllers
 
 					return RedirectToAction("Index", "Home");
 				}
-
 			}
 			// If we got this far, something failed, redisplay form
 			return View(model);

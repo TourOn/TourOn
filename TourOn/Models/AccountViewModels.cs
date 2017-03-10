@@ -64,8 +64,6 @@ namespace TourOn.Models
 
 	public class RegisterViewModel
 	{
-		[Required]
-		public string FormType { get; set; }
 
 		[Required]
 		[EmailAddress]
@@ -105,8 +103,12 @@ namespace TourOn.Models
 
 		public string Region { get; set; }
 
+		public virtual IEnumerable<Region> Regions { get; set; }
+
 		[Display(Name = "Genre")]
 		public string Genre { get; set; }
+
+		public virtual IEnumerable<Genre> Genres { get; set; }
 
 		//Venue-specific fields
 		[Display(Name = "Street")]
@@ -128,10 +130,6 @@ namespace TourOn.Models
 		
 		public string Showcase { get; set; }
 
-
-		public static readonly byte AdminAccountType = 0;
-		public static readonly byte BandAccountType = 1;
-		public static readonly byte VenueAccountType = 2;
 	}
 
 	public class ResetPasswordViewModel

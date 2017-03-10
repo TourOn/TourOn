@@ -197,11 +197,30 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703091835454_updatedRegisterControllerAndDatabase.cs" />
+    <Compile Include="Migrations\201703091835454_updatedRegisterControllerAndDatabase.Designer.cs">
+      <DependentUpon>201703091835454_updatedRegisterControllerAndDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703101535166_SimplifiedDatabase.cs" />
+    <Compile Include="Migrations\201703101535166_SimplifiedDatabase.Designer.cs">
+      <DependentUpon>201703101535166_SimplifiedDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703101540026_ChangedRequiredDescription.cs" />
+    <Compile Include="Migrations\201703101540026_ChangedRequiredDescription.Designer.cs">
+      <DependentUpon>201703101540026_ChangedRequiredDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703101844081_HardcodeRegionGenre.cs" />
+    <Compile Include="Migrations\201703101844081_HardcodeRegionGenre.Designer.cs">
+      <DependentUpon>201703101844081_HardcodeRegionGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Band.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -252,8 +271,11 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -274,7 +296,7 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\RegisterBand.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -287,6 +309,17 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Genres\Create.cshtml" />
+    <Content Include="Views\Genres\Delete.cshtml" />
+    <Content Include="Views\Genres\Details.cshtml" />
+    <Content Include="Views\Genres\Edit.cshtml" />
+    <Content Include="Views\Genres\Index.cshtml" />
+    <Content Include="Views\Regions\Create.cshtml" />
+    <Content Include="Views\Regions\Delete.cshtml" />
+    <Content Include="Views\Regions\Details.cshtml" />
+    <Content Include="Views\Regions\Edit.cshtml" />
+    <Content Include="Views\Regions\Index.cshtml" />
+    <Content Include="Views\Account\RegisterVenue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -296,6 +329,20 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703091835454_updatedRegisterControllerAndDatabase.resx">
+      <DependentUpon>201703091835454_updatedRegisterControllerAndDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101535166_SimplifiedDatabase.resx">
+      <DependentUpon>201703101535166_SimplifiedDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101540026_ChangedRequiredDescription.resx">
+      <DependentUpon>201703101540026_ChangedRequiredDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101844081_HardcodeRegionGenre.resx">
+      <DependentUpon>201703101844081_HardcodeRegionGenre.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TourOn.Models
 {
@@ -20,17 +21,19 @@ namespace TourOn.Models
 		}
 
 
-		//links region to application user
-		public virtual Region Region { get; set; }
+		
+	
+		public string Region { get; set; }
 
 		[Required]
 		public string Name { get; set; }
 
-		[Required]
+		
 		public string Description { get; set; }
 
 		//links genre to application user
-		public virtual Genre Genre { get; set; }
+
+		public string Genre { get; set; }
 
 		[Required]
 		[Phone]
@@ -55,6 +58,10 @@ namespace TourOn.Models
 
 		//determines account type
 		public byte AccountType { get; set; }
+		
+		public static readonly byte AdminAccountType = 0;
+		public static readonly byte BandAccountType = 1;
+		public static readonly byte VenueAccountType = 2;
 	}
 
 	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -68,5 +75,9 @@ namespace TourOn.Models
 		{
 			return new ApplicationDbContext();
 		}
+
+		public System.Data.Entity.DbSet<TourOn.Models.Genre> Genres { get; set; }
+
+		public System.Data.Entity.DbSet<TourOn.Models.Region> Regions { get; set; }
 	}
 }

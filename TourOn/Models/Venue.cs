@@ -9,7 +9,7 @@ namespace TourOn.Models
     public class Venue : ApplicationUser
     {
         public string Street { get; set; }
-        public int ZipCode { get; set; }
+        public int Zip { get; set; }
         public int Capacity { get; set; }
 
 
