@@ -22,5 +22,8 @@ namespace TourOn.Models
         public string CommentHeader { get; set; }
         //not required
         public string CommentBody { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh:mm tt | ddd, MMM d, yyyy}")]
+        public DateTime PublishDate = DateTime.Now;
     }
 }
