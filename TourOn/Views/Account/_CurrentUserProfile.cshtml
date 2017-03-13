@@ -18,8 +18,7 @@
         <button type="button" on onclick="showCreateCommentForm()"class="btn btn-info">New Comment</button>
         <!--NEW COMMENT FORM-->
         <div id="NewCommentForm" style="display:none">
-            <textarea></textarea>
-            <input type="submit" value="CreateComment" class="btn btn-info" />
+            @Html.Partial("~/Views/Account/NewCommentForm.cshtml")
         </div>
 		<div class="row comment-row">
 			<div class="col-md-2">
