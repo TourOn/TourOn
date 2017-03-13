@@ -1,5 +1,6 @@
 ﻿@model TourOn.Models.ApplicationUser
 
+
 <div class="main-row row">
 	<div class="col-md-1">
 	</div>
@@ -14,6 +15,12 @@
 			@Html.Partial("VenueProfile", Model)
 		}
 		<!--COMMENTS SECTION-->
+        <button type="button" on onclick="showCreateCommentForm()"class="btn btn-info">New Comment</button>
+        <!--NEW COMMENT FORM-->
+        <div id="NewCommentForm" style="display:none">
+            <textarea></textarea>
+            <input type="submit" value="CreateComment" class="btn btn-info" />
+        </div>
 		<div class="row comment-row">
 			<div class="col-md-2">
 				<img src="http://placehold.it/100x100">
@@ -42,5 +49,4 @@
 </div>
 <div class="col-md-1">
 
-</div>
 </div>
