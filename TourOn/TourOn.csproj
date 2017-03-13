@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -204,21 +204,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703091835454_updatedRegisterControllerAndDatabase.cs" />
-    <Compile Include="Migrations\201703091835454_updatedRegisterControllerAndDatabase.Designer.cs">
-      <DependentUpon>201703091835454_updatedRegisterControllerAndDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703101535166_SimplifiedDatabase.cs" />
-    <Compile Include="Migrations\201703101535166_SimplifiedDatabase.Designer.cs">
-      <DependentUpon>201703101535166_SimplifiedDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703101540026_ChangedRequiredDescription.cs" />
-    <Compile Include="Migrations\201703101540026_ChangedRequiredDescription.Designer.cs">
-      <DependentUpon>201703101540026_ChangedRequiredDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703101844081_HardcodeRegionGenre.cs" />
-    <Compile Include="Migrations\201703101844081_HardcodeRegionGenre.Designer.cs">
-      <DependentUpon>201703101844081_HardcodeRegionGenre.cs</DependentUpon>
+    <Compile Include="Migrations\201703111956342_init.cs" />
+    <Compile Include="Migrations\201703111956342_init.Designer.cs">
+      <DependentUpon>201703111956342_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -228,6 +216,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Picture.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Venue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -320,6 +309,9 @@
     <Content Include="Views\Regions\Edit.cshtml" />
     <Content Include="Views\Regions\Index.cshtml" />
     <Content Include="Views\Account\RegisterVenue.cshtml" />
+    <Content Include="Views\Account\BandProfile.cshtml" />
+    <Content Include="Views\Account\_CurrentUserProfile.cshtml" />
+    <Content Include="Views\Account\VenueProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -331,17 +323,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703091835454_updatedRegisterControllerAndDatabase.resx">
-      <DependentUpon>201703091835454_updatedRegisterControllerAndDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703101535166_SimplifiedDatabase.resx">
-      <DependentUpon>201703101535166_SimplifiedDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703101540026_ChangedRequiredDescription.resx">
-      <DependentUpon>201703101540026_ChangedRequiredDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703101844081_HardcodeRegionGenre.resx">
-      <DependentUpon>201703101844081_HardcodeRegionGenre.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703111956342_init.resx">
+      <DependentUpon>201703111956342_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -376,8 +359,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,245 @@
+﻿@model TourOn.Models.Band
+
+@{
+	ViewBag.Title = "View";
+}
+
+
+<div class="row header-row">
+	<div class="col-md-8 col-md-offset-2 text-center">
+		@*Name*@
+		<p><h1>@Html.DisplayFor(model => model.Name)</h1></p>
+		@*Address*@
+		<p><h3>@Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State)</h3></p>
+	</div>
+</div>
+<div class="row description-row">
+	<div class="col-md-7 description-panel">
+		<p>
+			@Html.DisplayFor(model => model.Description)
+		</p>
+	</div>
+	<div class="col-md-5">
+		<div class="carousel slide" id="spinner" data-ride="carousel">
+			<div class="carousel-inner" role="listbox">
+				<div class="item active"><img src="http://placehold.it/600x400"></div>
+				<div class="item"><img src="http://placehold.it/600x400"></div>
+				<div class="item"><img src="http://placehold.it/600x400"></div>
+			</div>
+			<a class="left carousel-control" href="#spinner" role="button" data-slide="prev">
+				<span class="icon-prev" aria-hidden="true">
+				</span><span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#spinner" role="button" data-slide="next">
+				<span class="icon-next" aria-hidden="true">
+					<span class="sr-only">Next</span>
+				</span>
+			</a>
+		</div>
+	</div>
+</div>
+<!--CONTACT ROW-->
+<div class="row contact-row">
+	<div class="col-md-3 text-center">
+		<p>
+			@Html.DisplayFor(model => model.Size)
+		</p>
+	</div>
+	<div class="col-md-3 col-md-offset-3 text-center">
+		<p>@Html.DisplayFor(model => model.PublicEmail)</p>
+	</div>
+	<div class="col-md-3 text-center">
+		<p>@Html.DisplayFor(model => model.Phone)</p>
+	</div>
+</div>
+<!--EXTRAS ROW-->
+<div class="row extras-row">
+	<div class="col-md-12">
+		<p>
+			@Html.DisplayFor(model => model.Showcase)
+		</p>
+	</div>
+</div>
+
+@*<h2>View</h2>
+
+		<div>
+			<h4>ApplicationUser</h4>
+			<hr />
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => model.Region)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.Region)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.Name)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.Name)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.Description)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.Description)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.Genre)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.Genre)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.Phone)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.Phone)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.City)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.City)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.State)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.State)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.PublicEmail)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.PublicEmail)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.OtherContacts)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.OtherContacts)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.AccountType)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.AccountType)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.Email)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.Email)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.EmailConfirmed)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.EmailConfirmed)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.PasswordHash)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.PasswordHash)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.SecurityStamp)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.SecurityStamp)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.PhoneNumber)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.PhoneNumber)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.PhoneNumberConfirmed)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.TwoFactorEnabled)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.TwoFactorEnabled)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.LockoutEndDateUtc)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.LockoutEndDateUtc)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.LockoutEnabled)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.LockoutEnabled)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.AccessFailedCount)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.AccessFailedCount)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.UserName)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.UserName)
+				</dd>
+
+			</dl>
+		</div>
+
+		<p>
+		@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+		@Html.ActionLink("Back to List", "Index")
+	</p>
+*@

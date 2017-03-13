@@ -22,3 +22,34 @@ select,
 textarea {
     max-width: 280px;
 }
+
+body {
+	background-color: rgb(40,167,29);
+	font-family: 'Montserrat', sans-serif;
+}
+.main-column {
+	background-color: white;
+	padding: 40px;
+}
+h1,h2,h3 {
+	margin: 15px 0px
+}
+.contact-row p {
+	padding: 10px 0px;
+	margin: 0px;
+}
+.description-row,
+.extras-row,
+.comment-row {
+	padding: 20px 0px;
+}
+.contact-row {
+	font-size: 20px;
+	padding: 10px;
+}
+.header-row,
+.comment-row,
+.contact-row {
+	background-color: rgb(238,238,238);
+	margin: 20px 0px;
+}

@@ -490,6 +490,34 @@ namespace TourOn.Controllers
 			base.Dispose(disposing);
 		}
 
+		ApplicationDbContext db = new ApplicationDbContext();
+
+		public ActionResult CurrentUserProfile()
+		{
+			var userID = User.Identity.GetUserId();
+			var user = (from u in db.Users
+						where u.Id == userID
+						select u).FirstOrDefault();
+			if (user.AccountType == ApplicationUser.BandAccountType)
+			{
+				Band bandUser = (Band)user;
+				return View("_CurrentUserProfile", bandUser);
+			}
+			else if (user.AccountType == ApplicationUser.VenueAccountType)
+			{
+				Venue venueUser = (Venue)user;
+				return View("_CurrentUserProfile", venueUser);
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+		}
+		//public ActionResult OtherUserProfile()
+		//{
+		//	var user = UserManager.FindById(//other user id here);
+		//	return View(user);
+		//}
 		#region Helpers
 		// Used for XSRF protection when adding external logins
 		private const string XsrfKey = "XsrfId";

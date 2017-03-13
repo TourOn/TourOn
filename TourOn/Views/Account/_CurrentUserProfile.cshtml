@@ -1,0 +1,46 @@
+﻿@model TourOn.Models.ApplicationUser
+
+<div class="main-row row">
+	<div class="col-md-1">
+	</div>
+	<!--MAIN COLUMN-->
+	<div class="col-md-10 main-column">
+		@if (Model.AccountType == 1)
+		{
+			@Html.Partial("BandProfile", Model)
+		}
+		else if (Model.AccountType == 2)
+		{
+			@Html.Partial("VenueProfile", Model)
+		}
+		<!--COMMENTS SECTION-->
+		<div class="row comment-row">
+			<div class="col-md-2">
+				<img src="http://placehold.it/100x100">
+			</div>
+			<div class="col-md-10">
+				<p><h4>Quisque neque mauris, convallis id vulputate hendrerit, suscipit ac diam. Pellentesque lobortis blandit venenatis.</h4></p>
+				<p>
+					Integer non lacus ultricies, consequat ipsum vitae, pharetra quam. Donec consequat scelerisque erat.
+					Phasellus fringilla turpis eget ex faucibus, id accumsan enim semper.
+				</p>
+			</div>
+		</div>
+		<div class="row comment-row">
+			<div class="col-md-2">
+				<img src="http://placehold.it/100x100">
+			</div>
+			<div class="col-md-10">
+				<p><h4>Sed ac consectetur magna. Nulla ac odio ut dui lacinia elementum.</h4></p>
+				<p>
+					Phasellus rutrum velit nulla, bibendum placerat ex ultricies at. Praesent varius, lectus id
+					consequat feugiat, enim enim mollis lacus, a pretium mi dolor ut libero.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-1">
+
+</div>
+</div>

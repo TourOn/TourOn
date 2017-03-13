@@ -3,40 +3,28 @@ namespace TourOn.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class updatedRegisterControllerAndDatabase : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.AspNetRoles",
+                "dbo.Genres",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
+                        GenreID = c.Int(nullable: false, identity: true),
+                        GenreName = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
+                .PrimaryKey(t => t.GenreID);
             
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Region = c.String(),
                         Name = c.String(nullable: false),
-                        Description = c.String(nullable: false),
+                        Description = c.String(),
+                        Genre = c.String(),
                         Phone = c.String(nullable: false),
                         City = c.String(nullable: false),
                         State = c.String(nullable: false),
@@ -106,15 +94,6 @@ namespace TourOn.Migrations
                 .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
-                "dbo.Genres",
-                c => new
-                    {
-                        GenreID = c.Int(nullable: false, identity: true),
-                        GenreName = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.GenreID);
-            
-            CreateTable(
                 "dbo.AspNetUserLogins",
                 c => new
                     {
@@ -139,6 +118,19 @@ namespace TourOn.Migrations
                 .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
                 "dbo.Regions",
                 c => new
                     {
@@ -147,20 +139,33 @@ namespace TourOn.Migrations
                     })
                 .PrimaryKey(t => t.RegionID);
             
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUsers", "Region_RegionID", "dbo.Regions");
+            DropForeignKey("dbo.AspNetUsers", "Genre_GenreID", "dbo.Genres");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Pictures", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUsers", "Genre_GenreID", "dbo.Genres");
             DropForeignKey("dbo.Comments", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "Subject_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "Author_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.Pictures", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.Comments", new[] { "ApplicationUser_Id" });
@@ -170,18 +175,15 @@ namespace TourOn.Migrations
             DropIndex("dbo.AspNetUsers", new[] { "Region_RegionID" });
             DropIndex("dbo.AspNetUsers", new[] { "Genre_GenreID" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.AspNetRoles");
             DropTable("dbo.Regions");
+            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Pictures");
             DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.Genres");
             DropTable("dbo.Comments");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Genres");
         }
     }
 }
