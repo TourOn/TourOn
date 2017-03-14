@@ -1,4 +1,4 @@
-﻿@model TourOn.Models.ApplicationUser
+﻿@model TourOn.Models.CommentViewModel
 
 
 <div class="main-row row">
@@ -6,11 +6,11 @@
 	</div>
 	<!--MAIN COLUMN-->
 	<div class="col-md-10 main-column">
-		@if (Model.AccountType == 1)
+		@if (Model.ApplicationUser.AccountType == 1)
 		{
 			@Html.Partial("BandProfile", Model)
 		}
-		else if (Model.AccountType == 2)
+		else if (Model.ApplicationUser.AccountType == 2)
 		{
 			@Html.Partial("VenueProfile", Model)
 		}
@@ -18,7 +18,7 @@
         <button type="button" on onclick="showCreateCommentForm()"class="btn btn-info">New Comment</button>
         <!--NEW COMMENT FORM-->
         <div id="NewCommentForm" style="display:none">
-            @Html.Partial("~/Views/Account/NewCommentForm.cshtml")
+            @*@Html.Partial("NewCommentForm")*@
         </div>
 		<div class="row comment-row">
 			<div class="col-md-2">

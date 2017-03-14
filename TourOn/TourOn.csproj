@@ -216,10 +216,23 @@
     <Compile Include="Migrations\201703131851237_AddedAndThenRemovedCommentViewModel.Designer.cs">
       <DependentUpon>201703131851237_AddedAndThenRemovedCommentViewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703141807195_AddedCommentViewModel.cs" />
+    <Compile Include="Migrations\201703141807195_AddedCommentViewModel.Designer.cs">
+      <DependentUpon>201703141807195_AddedCommentViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703141818386_EditedCommentViewModelToIncludeBandAndVenueModels.cs" />
+    <Compile Include="Migrations\201703141818386_EditedCommentViewModelToIncludeBandAndVenueModels.Designer.cs">
+      <DependentUpon>201703141818386_EditedCommentViewModelToIncludeBandAndVenueModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703141819552_AddedApplicationUserModelToCommentViewModel.cs" />
+    <Compile Include="Migrations\201703141819552_AddedApplicationUserModelToCommentViewModel.Designer.cs">
+      <DependentUpon>201703141819552_AddedApplicationUserModelToCommentViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Band.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -339,6 +352,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703131851237_AddedAndThenRemovedCommentViewModel.resx">
       <DependentUpon>201703131851237_AddedAndThenRemovedCommentViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141807195_AddedCommentViewModel.resx">
+      <DependentUpon>201703141807195_AddedCommentViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141818386_EditedCommentViewModelToIncludeBandAndVenueModels.resx">
+      <DependentUpon>201703141818386_EditedCommentViewModelToIncludeBandAndVenueModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141819552_AddedApplicationUserModelToCommentViewModel.resx">
+      <DependentUpon>201703141819552_AddedApplicationUserModelToCommentViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
