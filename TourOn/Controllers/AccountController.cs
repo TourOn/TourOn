@@ -499,9 +499,28 @@ namespace TourOn.Controllers
 			var user = (from u in db.Users
 						where u.Id == userID
 						select u).FirstOrDefault();
-			
-			return View("_CurrentUserProfile", user);
+            var model = new CommentViewModel();
+            model.ApplicationUser = user;
+			return View("_CurrentUserProfile", model);
 		}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CurrentUserProfile([Bind(Include = "CommentID,Author,Subject,ThumbsUp,CommentHeader,CommentBody")] Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                var userID = User.Identity.GetUserId();
+                comment.Author = (from u in db.Users
+                                  where u.Id == userID
+                                  select u).FirstOrDefault();
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                return RedirectToAction("CurrentUserProfile");
+            }
+
+            return RedirectToAction("CurrentUserProfile");
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins

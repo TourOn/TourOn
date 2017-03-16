@@ -1,4 +1,4 @@
-﻿@model TourOn.Models.ApplicationUser
+﻿@model TourOn.Models.CommentViewModel
 
 
 <div class="main-row row">
@@ -6,41 +6,35 @@
 	</div>
 	<!--MAIN COLUMN-->
 	<div class="col-md-10 main-column">
-		@if (Model.AccountType == TourOn.Models.ApplicationUser.BandAccountType)
+		@if (Model.ApplicationUser.AccountType == TourOn.Models.ApplicationUser.BandAccountType)
 		{
-			@Html.Partial("BandProfile", Model)
+			@Html.Partial("BandProfile", Model.ApplicationUser)
 		}
-		else if (Model.AccountType == TourOn.Models.ApplicationUser.VenueAccountType)
+		else if (Model.ApplicationUser.AccountType == TourOn.Models.ApplicationUser.VenueAccountType)
 		{
-			@Html.Partial("VenueProfile", Model)
+			@Html.Partial("VenueProfile", Model.ApplicationUser)
 		}
 		<!--COMMENTS SECTION-->
-        <button type="button" @*href=""*@class="btn btn-info">New Comment</button>
-        @Html.ActionLink("New Comment", "Create", "Comments", new {id = Model.Id}, null)
+        <button type="button" onclick ="showCreateCommentForm()"class="btn btn-info">New Comment</button>
+        @*@Html.ActionLink("New Comment", "Create", "Comments", new {id = Model.Id}, null)*@
+        <div id="NewCommentForm" style="display:none">
+            <button type="button" onclick="hideCreateCommentForm()" class="btn btn-info">Cancel</button>
+            @Html.Partial("_CreateNewComment", Model)
+        </div>
+        @foreach (var c in Model.ApplicationUser.Comments)
+        {
 		<div class="row comment-row">
 			<div class="col-md-2">
-				<img src="http://placehold.it/100x100">
+                <p>c.ThumbsUp</p>
 			</div>
 			<div class="col-md-10">
-				<p><h4>Quisque neque mauris, convallis id vulputate hendrerit, suscipit ac diam. Pellentesque lobortis blandit venenatis.</h4></p>
+				<p><h4>c.CommentHeader</h4></p>
 				<p>
-					Integer non lacus ultricies, consequat ipsum vitae, pharetra quam. Donec consequat scelerisque erat.
-					Phasellus fringilla turpis eget ex faucibus, id accumsan enim semper.
+					c.CommentBody
 				</p>
 			</div>
 		</div>
-		<div class="row comment-row">
-			<div class="col-md-2">
-				<img src="http://placehold.it/100x100">
-			</div>
-			<div class="col-md-10">
-				<p><h4>Sed ac consectetur magna. Nulla ac odio ut dui lacinia elementum.</h4></p>
-				<p>
-					Phasellus rutrum velit nulla, bibendum placerat ex ultricies at. Praesent varius, lectus id
-					consequat feugiat, enim enim mollis lacus, a pretium mi dolor ut libero.
-				</p>
-			</div>
-		</div>
+        }
 	</div>
 </div>
 <div class="col-md-1">
