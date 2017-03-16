@@ -151,7 +151,7 @@ namespace TourOn.Controllers
 
 			if (ModelState.IsValid)
 			{
-				var user = new Band
+				var user = new ApplicationUser
 				{
 					AccountType = ApplicationUser.BandAccountType,
 					Size = model.Size,
@@ -203,7 +203,7 @@ namespace TourOn.Controllers
 			//for venues
 			if (ModelState.IsValid)
 			{
-				var user = new Venue
+				var user = new ApplicationUser
 				{
 					AccountType = ApplicationUser.VenueAccountType,
 					Street = model.Street,
@@ -499,20 +499,8 @@ namespace TourOn.Controllers
 			var user = (from u in db.Users
 						where u.Id == userID
 						select u).FirstOrDefault();
-			if (user.AccountType == ApplicationUser.BandAccountType)
-			{
-				Band bandUser = (Band)user;
-				return View("_CurrentUserProfile", bandUser);
-			}
-			else if (user.AccountType == ApplicationUser.VenueAccountType)
-			{
-				Venue venueUser = (Venue)user;
-				return View("_CurrentUserProfile", venueUser);
-			}
-			else
-			{
-				return RedirectToAction("Index", "Home");
-			}
+			
+			return View("_CurrentUserProfile", user);
 		}
 
         #region Helpers

@@ -1,4 +1,4 @@
-﻿@model TourOn.Models.CommentViewModel
+﻿@model TourOn.Models.ApplicationUser
 
 
 <div class="main-row row">
@@ -6,20 +6,17 @@
 	</div>
 	<!--MAIN COLUMN-->
 	<div class="col-md-10 main-column">
-		@if (Model.ApplicationUser.AccountType == 1)
+		@if (Model.AccountType == TourOn.Models.ApplicationUser.BandAccountType)
 		{
 			@Html.Partial("BandProfile", Model)
 		}
-		else if (Model.ApplicationUser.AccountType == 2)
+		else if (Model.AccountType == TourOn.Models.ApplicationUser.VenueAccountType)
 		{
 			@Html.Partial("VenueProfile", Model)
 		}
 		<!--COMMENTS SECTION-->
-        <button type="button" on onclick="showCreateCommentForm()"class="btn btn-info">New Comment</button>
-        <!--NEW COMMENT FORM-->
-        <div id="NewCommentForm" style="display:none">
-            @*@Html.Partial("NewCommentForm")*@
-        </div>
+        <button type="button" @*href=""*@class="btn btn-info">New Comment</button>
+        @Html.ActionLink("New Comment", "Create", "Comments", new {id = Model.Id}, null)
 		<div class="row comment-row">
 			<div class="col-md-2">
 				<img src="http://placehold.it/100x100">

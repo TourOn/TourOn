@@ -13,7 +13,7 @@ namespace TourOn.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703111956342_init"; }
+            get { return "201703161408485_init"; }
         }
         
         string IMigrationMetadata.Source

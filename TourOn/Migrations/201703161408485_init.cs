@@ -8,13 +8,24 @@ namespace TourOn.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Genres",
+                "dbo.Comments",
                 c => new
                     {
-                        GenreID = c.Int(nullable: false, identity: true),
-                        GenreName = c.String(nullable: false),
+                        CommentID = c.Int(nullable: false, identity: true),
+                        ThumbsUp = c.Boolean(nullable: false),
+                        CommentHeader = c.String(nullable: false, maxLength: 140),
+                        CommentBody = c.String(),
+                        ApplicationUser_Id = c.String(maxLength: 128),
+                        Author_Id = c.String(maxLength: 128),
+                        Subject_Id = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.GenreID);
+                .PrimaryKey(t => t.CommentID)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Author_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Subject_Id)
+                .Index(t => t.ApplicationUser_Id)
+                .Index(t => t.Author_Id)
+                .Index(t => t.Subject_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -22,14 +33,21 @@ namespace TourOn.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Region = c.String(),
-                        Name = c.String(nullable: false),
+                        Name = c.String(),
                         Description = c.String(),
                         Genre = c.String(),
-                        Phone = c.String(nullable: false),
-                        City = c.String(nullable: false),
-                        State = c.String(nullable: false),
-                        PublicEmail = c.String(nullable: false),
+                        Phone = c.String(),
+                        City = c.String(),
+                        State = c.String(),
+                        PublicEmail = c.String(),
                         OtherContacts = c.String(),
+                        Street = c.String(),
+                        Zip = c.Int(nullable: false),
+                        Capacity = c.Int(nullable: false),
+                        Parking = c.String(),
+                        Equipment = c.String(),
+                        Size = c.Int(nullable: false),
+                        Showcase = c.String(),
                         AccountType = c.Byte(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -42,14 +60,6 @@ namespace TourOn.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
-                        Size = c.Int(),
-                        Showcase = c.String(),
-                        Street = c.String(),
-                        Zip = c.Int(),
-                        Capacity = c.Int(),
-                        Parking = c.String(),
-                        Equipment = c.String(),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
                         Genre_GenreID = c.Int(),
                         Region_RegionID = c.Int(),
                     })
@@ -72,26 +82,6 @@ namespace TourOn.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.Comments",
-                c => new
-                    {
-                        CommentID = c.Int(nullable: false, identity: true),
-                        ThumbsUp = c.Boolean(nullable: false),
-                        CommentHeader = c.String(nullable: false, maxLength: 140),
-                        CommentBody = c.String(),
-                        Author_Id = c.String(maxLength: 128),
-                        Subject_Id = c.String(maxLength: 128),
-                        ApplicationUser_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.CommentID)
-                .ForeignKey("dbo.AspNetUsers", t => t.Author_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.Subject_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.Author_Id)
-                .Index(t => t.Subject_Id)
-                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -131,6 +121,15 @@ namespace TourOn.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Genres",
+                c => new
+                    {
+                        GenreID = c.Int(nullable: false, identity: true),
+                        GenreName = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.GenreID);
+            
+            CreateTable(
                 "dbo.Regions",
                 c => new
                     {
@@ -156,34 +155,34 @@ namespace TourOn.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUsers", "Region_RegionID", "dbo.Regions");
             DropForeignKey("dbo.AspNetUsers", "Genre_GenreID", "dbo.Genres");
+            DropForeignKey("dbo.Comments", "Subject_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Comments", "Author_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Pictures", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Comments", "Subject_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Comments", "Author_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.Pictures", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.Comments", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.Comments", new[] { "Subject_Id" });
-            DropIndex("dbo.Comments", new[] { "Author_Id" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", new[] { "Region_RegionID" });
             DropIndex("dbo.AspNetUsers", new[] { "Genre_GenreID" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Comments", new[] { "Subject_Id" });
+            DropIndex("dbo.Comments", new[] { "Author_Id" });
+            DropIndex("dbo.Comments", new[] { "ApplicationUser_Id" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Regions");
+            DropTable("dbo.Genres");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Pictures");
             DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.Comments");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Genres");
+            DropTable("dbo.Comments");
         }
     }
 }

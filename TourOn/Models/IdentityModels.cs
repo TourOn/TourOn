@@ -19,33 +19,24 @@ namespace TourOn.Models
 			// Add custom user claims here
 			return userIdentity;
 		}
-
-
-		
-	
+        
 		public string Region { get; set; }
-
-		[Required]
+        
 		public string Name { get; set; }
-
-		
+        
 		public string Description { get; set; }
 
 		//links genre to application user
 
 		public string Genre { get; set; }
-
-		[Required]
+        
 		[Phone]
 		public string Phone { get; set; }
-
-		[Required]
+        
 		public string City { get; set; }
-
-		[Required]
+        
 		public string State { get; set; }
-
-		[Required]
+        
 		[EmailAddress]
 		public string PublicEmail { get; set; }
 
@@ -56,8 +47,22 @@ namespace TourOn.Models
 		public virtual ICollection<Comment> Comments { get; set; }
 		public virtual ICollection<Picture> Pictures { get; set; }
 
-		//determines account type
-		public byte AccountType { get; set; }
+        //Venue fields
+        public string Street { get; set; }
+        public int Zip { get; set; }
+        public int Capacity { get; set; }
+
+
+        public string Parking { get; set; }
+        public string Equipment { get; set; }
+
+        //Band
+        public int Size { get; set; }
+        //not required
+        public string Showcase { get; set; }
+
+        //determines account type
+        public byte AccountType { get; set; }
 		
 		public static readonly byte AdminAccountType = 0;
 		public static readonly byte BandAccountType = 1;
