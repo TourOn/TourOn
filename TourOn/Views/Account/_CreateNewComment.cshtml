@@ -1,9 +1,10 @@
 ﻿@model TourOn.Models.CommentViewModel
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreateComment", "Account", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
-    
+    <p>@Html.TextBoxFor(model => model.ApplicationUser, new { Value = @Model.ApplicationUser })</p>
+
     <div class="form-horizontal">
         <h4>Comment</h4>
         <hr />
@@ -34,11 +35,13 @@
             </div>
         </div>
 
-        @Html.HiddenFor(model => model.Comment.Subject, new { @Value = Model.ApplicationUser })
+
+        @Html.TextBoxFor(model => model.Comment.Subject, new { Value = @Model.ApplicationUser })
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                @*@Html.ActionLink("Submit", "CurrentUserProfile","Account")*@
+               <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

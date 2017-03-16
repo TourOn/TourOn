@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TourOn.Models;
 using System.Net;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TourOn.Controllers
 {
@@ -506,20 +507,26 @@ namespace TourOn.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CurrentUserProfile([Bind(Include = "CommentID,Author,Subject,ThumbsUp,CommentHeader,CommentBody")] Comment comment)
+        public ActionResult CreateComment([Bind(Include = "CommentID,Author,Subject,ThumbsUp,CommentHeader,CommentBody")] CommentViewModel model)
         {
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
+                
+                //pass subject id to commentviewmodel as string, then to the controller, then use it to search for correct applicationuser for subject
+                var comment = model.Comment;
                 var userID = User.Identity.GetUserId();
                 comment.Author = (from u in db.Users
-                                  where u.Id == userID
-                                  select u).FirstOrDefault();
+                                    where u.Id == userID
+                                    select u).FirstOrDefault();
+                comment.Subject = ViewBag.Subject;
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("CurrentUserProfile");
             }
 
-            return RedirectToAction("CurrentUserProfile");
+            return RedirectToAction("Index", "Home");
         }
 
         #region Helpers

@@ -319,7 +319,7 @@
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\Account\_NewComment.cshtml" />
-    <Content Include="Views\Shared\_CreateNewComment.cshtml" />
+    <Content Include="Views\Account\_CreateNewComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
