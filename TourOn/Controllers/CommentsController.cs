@@ -58,7 +58,6 @@ namespace TourOn.Controllers
                 comment.Author = (from u in db.Users
                             where u.Id == userID
                             select u).FirstOrDefault();
-                comment.Subject = ViewBag.Subject;
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
