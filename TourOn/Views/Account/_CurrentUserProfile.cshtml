@@ -19,7 +19,7 @@
         @*@Html.ActionLink("New Comment", "Create", "Comments", new {id = Model.Id}, null)*@
         <div id="NewCommentForm" style="display:none">
             <button type="button" onclick="hideCreateCommentForm()" class="btn btn-info">Cancel</button>
-            @Html.Partial("_CreateNewComment", Model)
+            @Html.Partial("_CreateNewComment", Model.Comment)
         </div>
         @foreach (var c in Model.ApplicationUser.Comments)
         {

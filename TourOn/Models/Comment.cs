@@ -12,8 +12,8 @@ namespace TourOn.Models
         public int CommentID { get; set; }
 
         //links comment to author and subject
-        public virtual ApplicationUser Author { get; set; }
-        public virtual ApplicationUser Subject { get; set; }
+        public string AuthorID { get; set; }
+        public string SubjectID { get; set; }
 
         [Required]
         public bool ThumbsUp { get; set; }

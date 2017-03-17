@@ -502,12 +502,14 @@ namespace TourOn.Controllers
 						select u).FirstOrDefault();
             var model = new CommentViewModel();
             model.ApplicationUser = user;
+            model.Comment = new Models.Comment {};
+            model.Comment.SubjectID = user.Id;
 			return View("_CurrentUserProfile", model);
 		}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment([Bind(Include = "CommentID,Author,Subject,ThumbsUp,CommentHeader,CommentBody")] CommentViewModel model)
+        public ActionResult CreateComment([Bind(Include = "CommentID,AuthorID,SubjectID,ThumbsUp,CommentHeader,CommentBody")] Comment comment)
         {
             UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
@@ -515,12 +517,11 @@ namespace TourOn.Controllers
             {
                 
                 //pass subject id to commentviewmodel as string, then to the controller, then use it to search for correct applicationuser for subject
-                var comment = model.Comment;
-                var userID = User.Identity.GetUserId();
-                comment.Author = (from u in db.Users
-                                    where u.Id == userID
-                                    select u).FirstOrDefault();
-                comment.Subject = ViewBag.Subject;
+                //var userID = User.Identity.GetUserId();
+                //comment.Author = (from u in db.Users
+                //                    where u.Id == userID
+                //                    select u).FirstOrDefault();
+                comment.AuthorID = User.Identity.GetUserId();
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("CurrentUserProfile");
