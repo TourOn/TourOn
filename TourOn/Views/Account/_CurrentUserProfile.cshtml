@@ -25,13 +25,27 @@
         {
 		<div class="row comment-row">
 			<div class="col-md-2">
-                <p>@c.ThumbsUp</p>
+                <p>
+                    @if (c.ThumbsUp == true)
+                    {
+                        <div class="vote">
+                            <img src="~/images/ThumbsUp.png" class="img-responsive" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="vote">
+                            <img src="~/images/ThumbsDown.png" class="img-responsive" />
+                        </div>
+                    }
+                </p>
 			</div>
 			<div class="col-md-10">
 				<p><h4>@c.CommentHeader</h4></p>
 				<p>
 					@c.CommentBody
 				</p>
+                <p><!--AUTHOR--></p>
 			</div>
 		</div>
         }
