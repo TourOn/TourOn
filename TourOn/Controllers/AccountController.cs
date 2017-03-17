@@ -511,8 +511,23 @@ namespace TourOn.Controllers
             model.Comments = (from c in db.Comments
                               where c.SubjectID == user.Id
                               select c);
+            int thumbsUp = 0;
+            int thumbsDown = 0;
+            foreach (var c in model.Comments)
+            {
+                if (c.ThumbsUp == true)
+                {
+                    thumbsUp++;
+                }
+                else
+                {
+                    thumbsDown++;
+                }
+            }
+            ViewBag.ThumbsUp = thumbsUp;
+            ViewBag.ThumbsDown = thumbsDown;
             //return data to the partial view
-			return View("_CurrentUserProfile", model);
+            return View("_CurrentUserProfile", model);
 		}
 
         [HttpPost]

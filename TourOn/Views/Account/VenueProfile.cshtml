@@ -6,12 +6,16 @@
 
 
 <div class="row header-row">
-	<div class="col-md-8 col-md-offset-2 text-center">
+	<div class="col-md-6 col-md-offset-2 text-center">
 		@*Name*@
 		<p><h1>@Html.DisplayFor(model => model.Name)</h1></p>
 		@*Address*@
 		<p><h3>@Html.DisplayFor(model => model.Street), @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State) @Html.DisplayFor(model => model.Zip)</h3></p>
 	</div>
+    <div class-="col-md-2">
+        <p>Thumbs Up</p> @ViewBag.ThumbsUp
+        <p>Thumbs Down</p> @ViewBag.ThumbsDown
+    </div>
 </div>
 <div class="row description-row">
 	<div class="col-md-7 description-panel">
