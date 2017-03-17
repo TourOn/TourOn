@@ -496,14 +496,22 @@ namespace TourOn.Controllers
 
 		public ActionResult CurrentUserProfile()
 		{
+            //get data for profile page's account
 			var userID = User.Identity.GetUserId();
 			var user = (from u in db.Users
 						where u.Id == userID
 						select u).FirstOrDefault();
             var model = new CommentViewModel();
             model.ApplicationUser = user;
+            //populate comment with an empty comment
             model.Comment = new Models.Comment {};
+            //set subject of new comments to the current profile
             model.Comment.SubjectID = user.Id;
+            //populate list of comments to display for current profile
+            model.Comments = (from c in db.Comments
+                              where c.SubjectID == user.Id
+                              select c);
+            //return data to the partial view
 			return View("_CurrentUserProfile", model);
 		}
 
@@ -516,7 +524,6 @@ namespace TourOn.Controllers
             if (ModelState.IsValid)
             {
                 
-                //pass subject id to commentviewmodel as string, then to the controller, then use it to search for correct applicationuser for subject
                 //var userID = User.Identity.GetUserId();
                 //comment.Author = (from u in db.Users
                 //                    where u.Id == userID
