@@ -363,6 +363,7 @@
     <Content Include="Views\Account\_NewComment.cshtml" />
     <Content Include="Views\Account\_CreateNewComment.cshtml" />
     <Content Include="Views\Account\EditBandProfile.cshtml" />
+    <Content Include="Views\Account\EditVenueProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
