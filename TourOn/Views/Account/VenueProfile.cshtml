@@ -4,7 +4,69 @@
 	ViewBag.Title = "View";
 }
 
+<div class="map">
+    @*adjust size of map*@
+    <div id="map" style="width:500px;height:500px">
+        <script>
+        function initialize() {
+            var geocoder;
+            // passing through razor commands (street+city+state+zip) for it to equal address variable.
+            var address = "@Html.DisplayFor(model => model.Street) @Html.DisplayFor(model => model.City) @Html.DisplayFor(model => model.State) @Html.DisplayFor(model => model.Zip) "
+            geocoder = new google.maps.Geocoder();
+            var myCenter;
+            var mapCanvas = document.getElementById("map");
+            var mapOptions = { center: myCenter, zoom: 16 };
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            //WIP Trying to use different image for marker
+            //var image = '/Content/MARKERFUNTIME.png';
+            var marker = new google.maps.Marker({ position: myCenter});
+            var infowindow = new google.maps.InfoWindow
+            //WIP Gonna be used for multiple markers later
+            //function addMarker(feature) {
+            //    var marker = new google.maps.Marker({
+            //        icon: icons[feature.type].icon,
+            //        map: map
+            //    });
+            //}
+            //geocoder works its magic here
+            if (geocoder) {
+                geocoder.geocode({
+                    'address': address
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                            map.setCenter(results[0].geometry.location);
+                            //Window pops open above marker displaying name and address
+                            var infowindow = new google.maps.InfoWindow({
+                                content: "@Html.DisplayFor(model => model.Name) <br> @Html.DisplayFor(model => model.Street) <br> @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State), @Html.DisplayFor(model => model.Zip)",
 
+                            });
+                            var marker = new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: map,
+                                title: address
+                            });
+
+                            infowindow.open(map, marker);
+                        } else {
+                            alert("No results found");
+                        }
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            }
+        }
+        </script>
+        <!--api code to use google maps: AIzaSyBddV4ov9nLBxKDl-rKo-tinMnF82pMAcM
+           maps/api/js?key=CODE_GOES_HERE&callback=myMap-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBddV4ov9nLBxKDl-rKo-tinMnF82pMAcM&callback=initialize"></script>
+        <!--
+        To use this code on your website, get a free API key from Google.
+        Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+        -->
+    </div>
+</div>
 <div class="row header-row">
 	<div class="col-md-6 col-md-offset-2 text-center">
 		@*Name*@
