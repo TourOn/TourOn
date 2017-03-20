@@ -14,6 +14,7 @@ namespace TourOn.Controllers
 	[Authorize]
 	public class AccountController : Controller
 	{
+		ApplicationDbContext db = new ApplicationDbContext();
 		private ApplicationSignInManager _signInManager;
 		private ApplicationUserManager _userManager;
 
@@ -492,27 +493,69 @@ namespace TourOn.Controllers
 			base.Dispose(disposing);
 		}
 
-		ApplicationDbContext db = new ApplicationDbContext();
 
 		public ActionResult CurrentUserProfile()
 		{
-            //get data for profile page's account
-			var userID = User.Identity.GetUserId();
+			//get data for profile page's account
+			var currentUserID = User.Identity.GetUserId();
+			return RedirectToAction("UserProfile", new { userID = currentUserID });
+		}
+
+		public ActionResult UserProfile(string userID)
+		{
+			//get data for profile page's account
+			var currentUserID = User.Identity.GetUserId();
 			var user = (from u in db.Users
 						where u.Id == userID
 						select u).FirstOrDefault();
-            var model = new CommentViewModel();
-            model.ApplicationUser = user;
-            //populate comment with an empty comment
-            model.Comment = new Models.Comment {};
-            //set subject of new comments to the current profile
-            model.Comment.SubjectID = user.Id;
-            //populate list of comments to display for current profile
-            model.Comments = (from c in db.Comments
-                              where c.SubjectID == user.Id
-                              select c);
-            //return data to the partial view
-			return View("_CurrentUserProfile", model);
+			var model = new CommentViewModel();
+			model.ApplicationUser = user;
+			//populate comment with an empty comment
+			model.Comment = new Models.Comment { };
+			//set subject of new comments to the current profile
+			model.Comment.SubjectID = user.Id;
+			//populate list of comments to display for current profile
+			model.Comments = (from c in db.Comments
+							  where c.SubjectID == user.Id
+							  select c);
+			int thumbsUp = 0;
+			int thumbsDown = 0;
+			foreach (var c in model.Comments)
+			{
+				if (c.ThumbsUp == true)
+				{
+					thumbsUp++;
+				}
+				else
+				{
+					thumbsDown++;
+				}
+			}
+			ViewBag.ThumbsUp = thumbsUp;
+			ViewBag.ThumbsDown = thumbsDown;
+
+			bool isCurrentUser;
+			if (currentUserID == user.Id)
+			{
+				isCurrentUser = true;
+			}
+			else
+			{
+				isCurrentUser = false;
+			}
+
+			ViewBag.Editable = isCurrentUser;
+
+			//return data to the partial view
+			return View("_UserProfile", model);
+		}
+
+		public ActionResult VenueList()
+		{
+			var venues = (from v in db.Users
+							  where v.AccountType == ApplicationUser.VenueAccountType
+							  select v);
+			return View(venues);
 		}
 
         [HttpPost]
