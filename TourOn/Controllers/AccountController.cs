@@ -8,6 +8,7 @@ using Microsoft.Owin.Security;
 using TourOn.Models;
 using System.Net;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace TourOn.Controllers
 {
@@ -165,7 +166,8 @@ namespace TourOn.Controllers
 					City = model.City,
 					State = model.State,
 					Genre = model.Genre,
-					Region = model.Region
+					Region = model.Region,
+                    ProfilePicture = model.ProfilePicture
 				};
 
 				var result = await UserManager.CreateAsync(user, model.Password);
@@ -220,8 +222,9 @@ namespace TourOn.Controllers
 					City = model.City,
 					State = model.State,
 					Genre = model.Genre,
-					Region = model.Region
-				};
+					Region = model.Region,
+                    ProfilePicture = model.ProfilePicture
+                };
 
 				var result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
@@ -550,6 +553,44 @@ namespace TourOn.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        //EDIT PROFILE
+        public ActionResult EditProfile()
+        {
+            var userID = User.Identity.GetUserId();
+            var user = (from u in db.Users
+                        where u.Id == userID
+                        select u).FirstOrDefault();
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            if (user.AccountType == 1)
+            {
+                return View("EditBandProfile", user);
+            }
+            else if (user.AccountType ==2)
+            {
+                return View("EditVenueProfile", user);
+            }
+            return View(user);
+        }
+
+        // POST
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "Name,Region,Genre,Street,City,State,Zip,Description,Phone,PublicEmail,OtherContacts,Size,Showcase,ProfilePicture,Capacity,Equipment,Parking")] ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("CurrentUserProfile");
+            }
+            return View(user);
         }
 
         #region Helpers

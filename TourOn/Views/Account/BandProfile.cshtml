@@ -17,6 +17,10 @@
         <p>Thumbs Down</p> @ViewBag.ThumbsDown
     </div>
 </div>
+<div class="update-profile">
+    <p>Add pictures, add description, edit profile</p>
+    @Html.ActionLink("Update Profile","EditProfile","Account", htmlAttributes: new { @class = "btn btn-info" } )
+</div>
 <div class="row description-row">
 	<div class="col-md-7 description-panel">
 		<p>
