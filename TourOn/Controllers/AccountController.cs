@@ -633,6 +633,23 @@ namespace TourOn.Controllers
             return View(user);
         }
 
+        public FileContentResult UserPhotos()
+        {
+            var userID = User.Identity.GetUserId();
+            var user = (from u in db.Users
+                        where u.Id == userID
+                        select u).FirstOrDefault();
+            //// to get the user details to load user Image
+            //var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            //var userImage = bdUsers.Users.Where(x => x.Id == userID).FirstOrDefault();
+            if (user.ProfilePicture == null)
+            {
+                string path = @"C:\Users\WeCanCodeIT\Documents\Visual Studio 2015\Projects\TourOn\TourOn\TourOn\images\no - image.jpg";
+                byte[] noImg = System.IO.File.ReadAllBytes(path);
+                user.ProfilePicture = noImg;
+            }
+            return new FileContentResult(user.ProfilePicture, "image/jpeg");
+        }
 
 
         #region Helpers
