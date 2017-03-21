@@ -88,5 +88,5 @@ namespace TourOn.Models
 		public System.Data.Entity.DbSet<TourOn.Models.Region> Regions { get; set; }
 
         public System.Data.Entity.DbSet<TourOn.Models.Comment> Comments { get; set; }
-    }
+	}
 }

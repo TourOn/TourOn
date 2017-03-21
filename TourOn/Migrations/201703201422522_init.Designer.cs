@@ -7,13 +7,13 @@ namespace TourOn.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CommentProfileSection : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CommentProfileSection));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703171549254_CommentProfileSection"; }
+            get { return "201703201422522_init"; }
         }
         
         string IMigrationMetadata.Source
