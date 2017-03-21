@@ -6,7 +6,8 @@
 
 <div class="map">
     @*adjust size of map*@
-    <div id="map" style="width:500px;height:500px">
+    <!--MAP-->
+    <div id="map">
         <script>
         function initialize() {
             var geocoder;
@@ -18,8 +19,16 @@
             var mapOptions = { center: myCenter, zoom: 16 };
             var map = new google.maps.Map(mapCanvas, mapOptions);
             //WIP Trying to use different image for marker
-            //var image = '/Content/MARKERFUNTIME.png';
-            var marker = new google.maps.Marker({ position: myCenter});
+            //var image = {
+            //'https://lh4.ggpht.com/Tr5sntMif9qOPrKV_UVl7K8A_V3xQDgA7Sw_qweLUFlg76d_vGFA7q1xIKZ6IcmeGqg=w300'
+            //size: new google.maps.Size(20, 32),
+            //origin: new google.maps.Point(0, 0),
+            //anchor: new google.maps.Point(0, 32)
+            //}
+            var marker = new google.maps.Marker({
+                position: myCenter,
+
+            });
             var infowindow = new google.maps.InfoWindow
             //WIP Gonna be used for multiple markers later
             //function addMarker(feature) {
@@ -44,9 +53,11 @@
                             var marker = new google.maps.Marker({
                                 position: results[0].geometry.location,
                                 map: map,
-                                title: address
-                            });
+                                title: address,
+                                animation: google.maps.Animation.DROP,
+                                //icon: image,
 
+                            });
                             infowindow.open(map, marker);
                         } else {
                             alert("No results found");
@@ -90,7 +101,8 @@
 		</p>
 	</div>
 	<div class="col-md-5">
-		<div class="carousel slide" id="spinner" data-ride="carousel">
+        @*<img src="@Url.Action("UserPhotos", "Account" )" class="img-circle" />*@
+		@*<div class="carousel slide" id="spinner" data-ride="carousel">
 			<div class="carousel-inner" role="listbox">
 				<div class="item active"><img src="http://placehold.it/600x400"></div>
 				<div class="item"><img src="http://placehold.it/600x400"></div>
@@ -105,7 +117,7 @@
 					<span class="sr-only">Next</span>
 				</span>
 			</a>
-		</div>
+		</div>*@
 	</div>
 </div>
 <!--CONTACT ROW-->

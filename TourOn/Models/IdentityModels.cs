@@ -26,7 +26,7 @@ namespace TourOn.Models
         
 		public string Description { get; set; }
 
-        //public byte[] ProfilePicture { get; set; }
+        public byte[] ProfilePicture { get; set; }
 
         //links genre to application user
 

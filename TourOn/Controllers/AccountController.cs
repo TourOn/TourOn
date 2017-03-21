@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using System.IO;
 
 namespace TourOn.Controllers
 {
@@ -150,12 +151,24 @@ namespace TourOn.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> RegisterBand(RegisterViewModel model)
+		public async Task<ActionResult> RegisterBand(/*[Bind(Exclude = "ProfilePicture")]*/ RegisterViewModel model)
 		{
 
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser
+                // To convert the user uploaded Photo as Byte Array before save to DB
+                //byte[] imageData = null;
+                //if (Request.Files.Count > 0)
+                //{
+                //    HttpPostedFileBase poImgFile = Request.Files["ProfilePicture"];
+
+                //    using (var binary = new BinaryReader(poImgFile.InputStream))
+                //    {
+                //        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                //    }
+                //}
+
+                var user = new ApplicationUser
 				{
 					AccountType = ApplicationUser.BandAccountType,
 					Size = model.Size,
@@ -169,8 +182,8 @@ namespace TourOn.Controllers
 					State = model.State,
 					Genre = model.Genre,
 					Region = model.Region
-                    //ProfilePicture = model.ProfilePicture
-				};
+                    //ProfilePicture = imageData
+                };
 
 				var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -203,12 +216,24 @@ namespace TourOn.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> RegisterVenue(RegisterViewModel model)
+		public async Task<ActionResult> RegisterVenue(/*[Bind(Exclude = "ProfilePicture")]*/ RegisterViewModel model)
 		{
 			//for venues
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser
+                // To convert the user uploaded Photo as Byte Array before save to DB
+                //byte[] imageData = null;
+                //if (Request.Files.Count > 0)
+                //{
+                //    HttpPostedFileBase poImgFile = Request.Files["ProfilePicture"];
+
+                //    using (var binary = new BinaryReader(poImgFile.InputStream))
+                //    {
+                //        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                //    }
+                //}
+
+                var user = new ApplicationUser
 				{
 					AccountType = ApplicationUser.VenueAccountType,
 					Street = model.Street,
@@ -225,7 +250,7 @@ namespace TourOn.Controllers
 					State = model.State,
 					Genre = model.Genre,
 					Region = model.Region
-                    //ProfilePicture = model.ProfilePicture
+                    //ProfilePicture = imageData
                 };
 
 				var result = await UserManager.CreateAsync(user, model.Password);
@@ -584,16 +609,31 @@ namespace TourOn.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile(ApplicationUser user)
+        public ActionResult EditProfile([Bind(Exclude = "ProfilePicture")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
+                // To convert the user uploaded Photo as Byte Array before save to DB
+                byte[] imageData = null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImgFile = Request.Files["ProfilePicture"];
+
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                    }
+                }
+                user.ProfilePicture = imageData;
+
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("CurrentUserProfile","Account",user);
             }
             return View(user);
         }
+
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins
