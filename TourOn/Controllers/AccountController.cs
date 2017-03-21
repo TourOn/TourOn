@@ -9,6 +9,8 @@ using TourOn.Models;
 using System.Net;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace TourOn.Controllers
 {
@@ -166,8 +168,8 @@ namespace TourOn.Controllers
 					City = model.City,
 					State = model.State,
 					Genre = model.Genre,
-					Region = model.Region,
-                    ProfilePicture = model.ProfilePicture
+					Region = model.Region
+                    //ProfilePicture = model.ProfilePicture
 				};
 
 				var result = await UserManager.CreateAsync(user, model.Password);
@@ -222,8 +224,8 @@ namespace TourOn.Controllers
 					City = model.City,
 					State = model.State,
 					Genre = model.Genre,
-					Region = model.Region,
-                    ProfilePicture = model.ProfilePicture
+					Region = model.Region
+                    //ProfilePicture = model.ProfilePicture
                 };
 
 				var result = await UserManager.CreateAsync(user, model.Password);
@@ -582,13 +584,13 @@ namespace TourOn.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile([Bind(Include = "Name,Region,Genre,Street,City,State,Zip,Description,Phone,PublicEmail,OtherContacts,Size,Showcase,ProfilePicture,Capacity,Equipment,Parking")] ApplicationUser user)
+        public ActionResult EditProfile(ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("CurrentUserProfile");
+                return RedirectToAction("CurrentUserProfile","Account",user);
             }
             return View(user);
         }

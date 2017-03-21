@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201703201822093_AddedProfilePicFieldToApplicationUser.Designer.cs">
       <DependentUpon>201703201822093_AddedProfilePicFieldToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703202314447_RemovedProfilePicField.cs" />
+    <Compile Include="Migrations\201703202314447_RemovedProfilePicField.Designer.cs">
+      <DependentUpon>201703202314447_RemovedProfilePicField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -383,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703201822093_AddedProfilePicFieldToApplicationUser.resx">
       <DependentUpon>201703201822093_AddedProfilePicFieldToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703202314447_RemovedProfilePicField.resx">
+      <DependentUpon>201703202314447_RemovedProfilePicField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
