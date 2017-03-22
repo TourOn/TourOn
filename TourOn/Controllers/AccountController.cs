@@ -670,6 +670,7 @@ namespace TourOn.Controllers
             {
                 // To convert the user uploaded Photo as Byte Array before save to DB
                 byte[] imageData = null;
+
                 if (Request.Files.Count > 0)
                 {
                     HttpPostedFileBase poImgFile = Request.Files["ProfilePicture"];
@@ -677,9 +678,15 @@ namespace TourOn.Controllers
                     using (var binary = new BinaryReader(poImgFile.InputStream))
                     {
                         imageData = binary.ReadBytes(poImgFile.ContentLength);
+                        user.ProfilePicture = imageData;
                     }
                 }
-                user.ProfilePicture = imageData;
+                if (user.ProfilePicture.Length == 0)
+                {
+                    string path = @"C:\Users\WeCanCodeIT\Documents\Visual Studio 2015\Projects\TourOn\TourOn\TourOn\images\no-image.jpg";
+                    byte[] noImg = System.IO.File.ReadAllBytes(path);
+                    user.ProfilePicture = noImg;
+                }
 
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
