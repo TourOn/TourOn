@@ -13,8 +13,10 @@
             @Html.LabelFor(model => model.ThumbsUp, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.ThumbsUp)
-                    @Html.ValidationMessageFor(model => model.ThumbsUp, "", new { @class = "text-danger" })
+					<label>
+						@Html.EditorFor(model => model.ThumbsUp)
+						@Html.ValidationMessageFor(model => model.ThumbsUp, "", new { @class = "text-danger" })
+					</label>
                 </div>
             </div>
         </div>
@@ -36,7 +38,7 @@
         </div>
 
         @*@Html.TextBox("SubjectID", (string)ViewBag.SubjectID)*@
-        @Html.TextBoxFor(model => model.SubjectID, new { @Value = Model.SubjectID })
+        @Html.HiddenFor(model => model.SubjectID, new { @Value = Model.SubjectID })
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -46,7 +48,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
