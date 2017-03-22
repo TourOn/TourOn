@@ -12,6 +12,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.IO;
+using System.Web.Hosting;
 
 namespace TourOn.Controllers
 {
@@ -683,7 +684,7 @@ namespace TourOn.Controllers
                 }
                 if (user.ProfilePicture.Length == 0)
                 {
-                    string path = @"C:\Users\WeCanCodeIT\Documents\Visual Studio 2015\Projects\TourOn\TourOn\TourOn\images\no-image.jpg";
+                    string path = HostingEnvironment.ApplicationPhysicalPath + @"images\no-image.jpg";
                     byte[] noImg = System.IO.File.ReadAllBytes(path);
                     user.ProfilePicture = noImg;
                 }
@@ -706,7 +707,7 @@ namespace TourOn.Controllers
             //var userImage = bdUsers.Users.Where(x => x.Id == userID).FirstOrDefault();
             if (user.ProfilePicture == null)
             {
-                string path = @"C:\Users\WeCanCodeIT\Documents\Visual Studio 2015\Projects\TourOn\TourOn\TourOn\images\no-image.jpg";
+                string path = HostingEnvironment.ApplicationPhysicalPath + @"images\no-image.jpg";
                 byte[] noImg = System.IO.File.ReadAllBytes(path);
                 user.ProfilePicture = noImg;
             }
