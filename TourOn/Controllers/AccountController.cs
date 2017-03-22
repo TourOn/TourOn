@@ -699,7 +699,7 @@ namespace TourOn.Controllers
             //var userImage = bdUsers.Users.Where(x => x.Id == userID).FirstOrDefault();
             if (user.ProfilePicture == null)
             {
-                string path = @"C:\Users\WeCanCodeIT\Documents\Visual Studio 2015\Projects\TourOn\TourOn\TourOn\images\no - image.jpg";
+                string path = @"C:\Users\WeCanCodeIT\Documents\Visual Studio 2015\Projects\TourOn\TourOn\TourOn\images\no-image.jpg";
                 byte[] noImg = System.IO.File.ReadAllBytes(path);
                 user.ProfilePicture = noImg;
             }
