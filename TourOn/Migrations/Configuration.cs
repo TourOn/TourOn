@@ -9,8 +9,9 @@ namespace TourOn.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-        }
+            AutomaticMigrationsEnabled = true;
+
+		}
 
         protected override void Seed(TourOn.Models.ApplicationDbContext context)
         {

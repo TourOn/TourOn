@@ -8,6 +8,11 @@ using Microsoft.Owin.Security;
 using TourOn.Models;
 using System.Net;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.IO;
+using System.Web.Hosting;
 
 namespace TourOn.Controllers
 {
@@ -148,12 +153,24 @@ namespace TourOn.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> RegisterBand(RegisterViewModel model)
+		public async Task<ActionResult> RegisterBand(/*[Bind(Exclude = "ProfilePicture")]*/ RegisterViewModel model)
 		{
 
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser
+                // To convert the user uploaded Photo as Byte Array before save to DB
+                //byte[] imageData = null;
+                //if (Request.Files.Count > 0)
+                //{
+                //    HttpPostedFileBase poImgFile = Request.Files["ProfilePicture"];
+
+                //    using (var binary = new BinaryReader(poImgFile.InputStream))
+                //    {
+                //        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                //    }
+                //}
+
+                var user = new ApplicationUser
 				{
 					AccountType = ApplicationUser.BandAccountType,
 					Size = model.Size,
@@ -167,7 +184,8 @@ namespace TourOn.Controllers
 					State = model.State,
 					Genre = model.Genre,
 					Region = model.Region
-				};
+                    //ProfilePicture = imageData
+                };
 
 				var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -200,12 +218,24 @@ namespace TourOn.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> RegisterVenue(RegisterViewModel model)
+		public async Task<ActionResult> RegisterVenue(/*[Bind(Exclude = "ProfilePicture")]*/ RegisterViewModel model)
 		{
 			//for venues
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser
+                // To convert the user uploaded Photo as Byte Array before save to DB
+                //byte[] imageData = null;
+                //if (Request.Files.Count > 0)
+                //{
+                //    HttpPostedFileBase poImgFile = Request.Files["ProfilePicture"];
+
+                //    using (var binary = new BinaryReader(poImgFile.InputStream))
+                //    {
+                //        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                //    }
+                //}
+
+                var user = new ApplicationUser
 				{
 					AccountType = ApplicationUser.VenueAccountType,
 					Street = model.Street,
@@ -222,7 +252,8 @@ namespace TourOn.Controllers
 					State = model.State,
 					Genre = model.Genre,
 					Region = model.Region
-				};
+                    //ProfilePicture = imageData
+                };
 
 				var result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
@@ -508,6 +539,33 @@ namespace TourOn.Controllers
 			var user = (from u in db.Users
 						where u.Id == userID
 						select u).FirstOrDefault();
+            //var model = new CommentViewModel();
+            //model.ApplicationUser = user;
+            ////populate comment with an empty comment
+            //model.Comment = new Models.Comment {};
+            ////set subject of new comments to the current profile
+            //model.Comment.SubjectID = user.Id;
+            ////populate list of comments to display for current profile
+            //model.Comments = (from c in db.Comments
+            //                  where c.SubjectID == user.Id
+            //                  select c);
+            //int thumbsUp = 0;
+            //int thumbsDown = 0;
+            //foreach (var c in model.Comments)
+            //{
+            //    if (c.ThumbsUp == true)
+            //    {
+            //        thumbsUp++;
+            //    }
+            //    else
+            //    {
+            //        thumbsDown++;
+            //    }
+            //}
+            //ViewBag.ThumbsUp = thumbsUp;
+            //ViewBag.ThumbsDown = thumbsDown;
+            ////return data to the partial view
+            //return View("_CurrentUserProfile", model);
 			var model = new CommentViewModel();
 			model.ApplicationUser = user;
 			//populate comment with an empty comment
@@ -579,6 +637,83 @@ namespace TourOn.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        //EDIT PROFILE
+        public ActionResult EditProfile()
+        {
+            var userID = User.Identity.GetUserId();
+            var user = (from u in db.Users
+                        where u.Id == userID
+                        select u).FirstOrDefault();
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            if (user.AccountType == 1)
+            {
+                return View("EditBandProfile", user);
+            }
+            else if (user.AccountType ==2)
+            {
+                return View("EditVenueProfile", user);
+            }
+            return View(user);
+        }
+
+        // POST
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Exclude = "ProfilePicture")] ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                // To convert the user uploaded Photo as Byte Array before save to DB
+                byte[] imageData = null;
+
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImgFile = Request.Files["ProfilePicture"];
+
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                        user.ProfilePicture = imageData;
+                    }
+                }
+                if (user.ProfilePicture.Length == 0)
+                {
+                    string path = HostingEnvironment.ApplicationPhysicalPath + @"images\no-image.jpg";
+                    byte[] noImg = System.IO.File.ReadAllBytes(path);
+                    user.ProfilePicture = noImg;
+                }
+
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("CurrentUserProfile","Account",user);
+            }
+            return View(user);
+        }
+
+        public FileContentResult UserPhotos()
+        {
+            var userID = User.Identity.GetUserId();
+            var user = (from u in db.Users
+                        where u.Id == userID
+                        select u).FirstOrDefault();
+            //// to get the user details to load user Image
+            //var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            //var userImage = bdUsers.Users.Where(x => x.Id == userID).FirstOrDefault();
+            if (user.ProfilePicture == null)
+            {
+                string path = HostingEnvironment.ApplicationPhysicalPath + @"images\no-image.jpg";
+                byte[] noImg = System.IO.File.ReadAllBytes(path);
+                user.ProfilePicture = noImg;
+            }
+            return new FileContentResult(user.ProfilePicture, "image/jpeg");
+        }
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

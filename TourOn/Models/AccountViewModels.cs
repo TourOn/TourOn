@@ -110,8 +110,10 @@ namespace TourOn.Models
 
 		public virtual IEnumerable<Genre> Genres { get; set; }
 
-		//Venue-specific fields
-		[Display(Name = "Street")]
+        public byte[] ProfilePicture { get; set; }
+
+        //Venue-specific fields
+        [Display(Name = "Street")]
 		public string Street { get; set; }
 
 		[Display(Name = "Zip Code")]

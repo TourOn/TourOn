@@ -26,9 +26,11 @@ namespace TourOn.Models
         
 		public string Description { get; set; }
 
-		//links genre to application user
+        public byte[] ProfilePicture { get; set; }
 
-		public string Genre { get; set; }
+        //links genre to application user
+
+        public string Genre { get; set; }
         
 		[Phone]
 		public string Phone { get; set; }

@@ -1,15 +1,15 @@
 ﻿@model TourOn.Models.RegisterViewModel
 @{
-	ViewBag.Title = "Register Venue";
+	ViewBag.Title = "Register Band";
 }
 
 <div class="top-text row text-center">
 	<h2>@ViewBag.Title</h2>
 </div>
 
-
+@*band registration form*@
 <div class="main-column">
-	@using (Html.BeginForm("RegisterVenue", "Account", FormMethod.Post, new
+	@using (Html.BeginForm("RegisterBand", "Account", FormMethod.Post, new
 	{
 		@class = "form-horizontal",
 		role = "form"
@@ -49,11 +49,26 @@
 					@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
 				</div>
 			</div>
-
 			<div class="form-group">
-				@Html.LabelFor(m => m.Street, new { @class = "col-md-2 control-label" })
+				@Html.LabelFor(m => m.Region, new { @class = "col-md-2 control-label" })
 				<div class="col-md-10">
-					@Html.TextBoxFor(m => m.Street, new { @class = "form-control" })
+					@Html.DropDownListFor(m => m.Region, new List<SelectListItem>
+			   {
+					new SelectListItem { Text = "Cleveland", Value = "Cleveland" },
+					new SelectListItem { Text = "Akron", Value = "Akron" }
+			   }, new { @class = "form-control" })
+				</div>
+			</div>
+			<div class="form-group">
+				@Html.LabelFor(m => m.Genre, new { @class = "col-md-2 control-label" })
+				<div class="col-md-10">
+					@Html.DropDownListFor(m => m.Genre, new List<SelectListItem>
+			   {
+					new SelectListItem { Text = "Multiple", Value = "Multiple" },
+					new SelectListItem { Text = "Rock", Value = "Rock" },
+					new SelectListItem { Text = "Metal", Value = "Metal" },
+					new SelectListItem { Text = "Hip-hop", Value = "Hip-hop" }
+			   }, new { @class = "form-control" })
 				</div>
 			</div>
 			<div class="form-group">
@@ -69,17 +84,38 @@
 				</div>
 			</div>
 			<div class="form-group">
-				@Html.LabelFor(m => m.Zip, new { @class = "col-md-2 control-label" })
+				@Html.LabelFor(m => m.Size, new { @class = "col-md-2 control-label" })
 				<div class="col-md-10">
-					@Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+					@Html.TextBoxFor(m => m.Size, new { @class = "form-control" })
 				</div>
+
+<<<<<<< HEAD
 			</div>
-			<div class="form-group">
-				@Html.LabelFor(m => m.Capacity, new { @class = "col-md-2 control-label" })
-				<div class="col-md-10">
-					@Html.TextBoxFor(m => m.Capacity, new { @class = "form-control" })
-				</div>
-			</div>
+=======
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(m => m.PublicEmail, new { @class = "col-md-2 control-label" })
+		<div class="col-md-10">
+			@Html.TextBoxFor(m => m.PublicEmail, new { @class = "form-control" })
+		</div>
+	</div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="ProfilePicture" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+        </div>
+    </div>*@
+
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" class="btn btn-default" value="Register" />
+		</div>
+	</div>
+}
+>>>>>>> 5bb1f64f7f9b248bc0ca7ad523da4420865543ef
+
 			<div class="form-group">
 				@Html.LabelFor(m => m.PublicEmail, new { @class = "col-md-2 control-label" })
 				<div class="col-md-10">
@@ -93,7 +129,6 @@
 			</div>
 	}
 </div>
-
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
 }
