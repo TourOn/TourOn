@@ -284,6 +284,9 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="images\Grog 2.jpg" />
+    <Content Include="images\Grog1.jpg" />
+    <Content Include="images\grogshopprofilepic.gif" />
     <Content Include="images\no-image.jpg" />
     <Content Include="images\ThumbsDown.png" />
     <Content Include="images\ThumbsUp.png" />

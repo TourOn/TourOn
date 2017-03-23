@@ -7,7 +7,7 @@
 
 <div class="row header-row text-center">
 	<div class="col-md-3 profile">
-		<img src="@Url.Action("UserPhotos", "Account" )" class="img-responsive img-circle" />
+		<img src="~/images/grogshopprofilepic.gif"@*"@Url.Action("UserPhotos", "Account" )"*@ class="img-responsive img-circle" />
 	</div>
 	<div class="col-md-9 row">
 		<div class="col-md-12">
@@ -28,9 +28,8 @@
 	<div class="col-md-6">
 		<div class="carousel slide" id="spinner" data-ride="carousel">
 			<div class="carousel-inner" role="listbox">
-				<div class="item active"><img src="http://placehold.it/600x400"></div>
-				<div class="item"><img src="http://placehold.it/600x400"></div>
-				<div class="item"><img src="http://placehold.it/600x400"></div>
+				<div class="item active"><img src="~/images/Grog 2.jpg" /></div>
+				<div class="item"><img src="~/images/Grog1.jpg" /></div>
 			</div>
 			<a class="left carousel-control" href="#spinner" role="button" data-slide="prev">
 				<span class="icon-prev" aria-hidden="true">
@@ -120,10 +119,10 @@
 
 </div>
 <div class="row description-row">
-	<div class="col-md-5 profile text-center">
-		@*<img src="@Url.Action("UserPhotos", "Account" )" class="img-responsive img-circle" />*@
-	</div>
-	<div class="col-md-7 description-panel">
+	@*<div class="col-md-5 profile text-center">
+	<img src="@Url.Action("UserPhotos", "Account" )" class="img-responsive img-circle" />
+	</div>*@
+	<div class="col-md-12 description-panel">
 		<p>
 			@Html.DisplayFor(model => model.Description)
 		</p>

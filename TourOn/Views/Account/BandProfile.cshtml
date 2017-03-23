@@ -4,53 +4,57 @@
 	ViewBag.Title = "View";
 }
 
-
-<div class="row header-row">
-	<div class="col-md-6 col-md-offset-2 text-center">
-		@*Name*@
-		<p><h1>@Html.DisplayFor(model => model.Name)</h1></p>
-		@*Address*@
-		<p><h3>@Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State)</h3></p>
+<div class="row header-row text-center">
+	<div class="col-md-3 profile">
+		<img src="@Url.Action("UserPhotos", "Account" )" class="img-responsive img-circle" />
 	</div>
-    <div class-="col-md-2">
-        <p>Thumbs Up</p> @ViewBag.ThumbsUp
-        <p>Thumbs Down</p> @ViewBag.ThumbsDown
-    </div>
+	<div class="col-md-9 row">
+		<div class="col-md-12">
+			@*Name*@
+			<p><h1>@Html.DisplayFor(model => model.Name)</h1></p>
+			@*Address*@
+			<p><h3>@Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State)</h3></p>
+		</div>
+		<div class="col-md-12 thumb-box">
+			<div class="col-xs-1 col-xs-offset-4"><img src="~/images/ThumbsUp.png" class="thumb" /></div>
+			<div class="col-xs-1 text-left">@ViewBag.ThumbsUp</div>
+			<div class="col-xs-1"><img src="~/images/ThumbsDown.png" class="thumb" /></div>
+			<div class="col-xs-1 text-left">@ViewBag.ThumbsDown</div>
+		</div>
+	</div>
 </div>
 <div class="row description-row">
-	<div class="col-md-7 description-panel">
+	<div class="col-md-12 description-panel">
 		<p>
 			@Html.DisplayFor(model => model.Description)
 		</p>
 	</div>
-	<div class="col-md-5">
-        <img src="@Url.Action("UserPhotos", "Account" )" class="img-circle" />
-        @*<div class="carousel slide" id="spinner" data-ride="carousel">
-            <div class="carousel-inner" role="listbox">
-                <div class="item active"><img src="http://placehold.it/600x400"></div>
-                <div class="item"><img src="http://placehold.it/600x400"></div>
-                <div class="item"><img src="http://placehold.it/600x400"></div>
-            </div>
-            <a class="left carousel-control" href="#spinner" role="button" data-slide="prev">
-                <span class="icon-prev" aria-hidden="true">
-                </span><span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#spinner" role="button" data-slide="next">
-                <span class="icon-next" aria-hidden="true">
-                    <span class="sr-only">Next</span>
-                </span>
-            </a>
-        </div>*@
+	@*<div class="col-md-5">
+	<img src="@Url.Action("UserPhotos", "Account" )" class="img-circle" />
+	<div class="carousel slide" id="spinner" data-ride="carousel">
+		<div class="carousel-inner" role="listbox">
+			<div class="item active"><img src="http://placehold.it/600x400"></div>
+			<div class="item"><img src="http://placehold.it/600x400"></div>
+			<div class="item"><img src="http://placehold.it/600x400"></div>
+		</div>
+		<a class="left carousel-control" href="#spinner" role="button" data-slide="prev">
+			<span class="icon-prev" aria-hidden="true">
+			</span><span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#spinner" role="button" data-slide="next">
+			<span class="icon-next" aria-hidden="true">
+				<span class="sr-only">Next</span>
+			</span>
+		</a>
 	</div>
+	</div>*@
 </div>
 <!--CONTACT ROW-->
 <div class="row contact-row">
 	<div class="col-md-3 text-center">
-		<p>
-			@Html.DisplayFor(model => model.Size)
-		</p>
+		<p>Size: @Html.DisplayFor(model => model.Size)</p>
 	</div>
-	<div class="col-md-3 col-md-offset-3 text-center">
+	<div class="col-md-6 text-center">
 		<p>@Html.DisplayFor(model => model.PublicEmail)</p>
 	</div>
 	<div class="col-md-3 text-center">

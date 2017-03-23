@@ -17,7 +17,7 @@
 		<div class="row">
 			<!--COMMENTS SECTION-->
 			<div class="col-md-10">
-				<button type="button" onclick="showCreateCommentForm()" class="btn btn-info">New Comment</button>
+				<button type="button" onclick="showCreateCommentForm()" class="btn btn-info" id="new-comment">New Comment</button>
 				@*@Html.ActionLink("New Comment", "Create", "Comments", new {id = Model.Id}, null)*@
 				<div id="NewCommentForm" style="display:none">
 					<button type="button" onclick="hideCreateCommentForm()" class="btn btn-info">Cancel</button>

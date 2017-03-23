@@ -113,7 +113,7 @@ h1,h2,h3 {
 .profile img {
 	display: inline-block;
 	float: none;
-	margin: 20px;
+	margin: 30px;
 	max-height: 150px;
 	max-width: 150px;
 }
@@ -148,4 +148,15 @@ h1,h2,h3 {
 }
 .registerVenue {
 	background-color: lightsteelblue;
+}
+
+.carousel .item {
+  height: 300px;
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 300px;
 }

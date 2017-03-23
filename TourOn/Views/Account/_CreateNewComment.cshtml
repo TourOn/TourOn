@@ -1,50 +1,54 @@
 ﻿@model TourOn.Models.Comment
 
-@using (Html.BeginForm("CreateComment", "Account", FormMethod.Post)) 
+@using (Html.BeginForm("CreateComment", "Account", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
-    @*<p>@Html.TextBoxFor(model => model.ApplicationUser, new { Value = @Model.ApplicationUser })</p>*@
+	@Html.AntiForgeryToken()
+	@*<p>@Html.TextBoxFor(model => model.ApplicationUser, new { Value = @Model.ApplicationUser })</p>*@
 
-    <div class="form-horizontal">
-        <h4>Comment</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ThumbsUp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-					<label>
-						@Html.EditorFor(model => model.ThumbsUp)
-						@Html.ValidationMessageFor(model => model.ThumbsUp, "", new { @class = "text-danger" })
-					</label>
-                </div>
-            </div>
-        </div>
+	<div class="form-horizontal">
+		<h4>Comment</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="form-group">
+			@Html.LabelFor(model => model.ThumbsUp, "Like?", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				<div class="entry">
+					<span id="thumbs-up">
+						@Html.HiddenFor(model => model.ThumbsUp, new { @Value = Model.ThumbsUp })
+						@*@Html.ValidationMessageFor(model => model.ThumbsUp, "", new { @class = "text-danger" })*@
+					</span>
+					<span>
+						<button type="button" onclick="like()" class="btn btn-default" id="like">Like</button>
+						<button type="button" onclick="dislike()" class="btn btn-default" id="dislike">Dislike</button>
+					</span>
+				</div>
+			</div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CommentHeader, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CommentHeader, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CommentHeader, "", new { @class = "text-danger" })
-            </div>
-        </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.CommentHeader, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.CommentHeader, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.CommentHeader, "", new { @class = "text-danger" })
+			</div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CommentBody, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CommentBody, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CommentBody, "", new { @class = "text-danger" })
-            </div>
-        </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.CommentBody, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.CommentBody, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.CommentBody, "", new { @class = "text-danger" })
+			</div>
+		</div>
 
-        @*@Html.TextBox("SubjectID", (string)ViewBag.SubjectID)*@
-        @Html.HiddenFor(model => model.SubjectID, new { @Value = Model.SubjectID })
+		@*@Html.TextBox("SubjectID", (string)ViewBag.SubjectID)*@
+		@Html.HiddenFor(model => model.SubjectID, new { @Value = Model.SubjectID })
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                @*@Html.ActionLink("Submit", "CurrentUserProfile","Account")*@
-               <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				@*@Html.ActionLink("Submit", "CurrentUserProfile","Account")*@
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
 }
