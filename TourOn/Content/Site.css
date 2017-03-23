@@ -114,8 +114,9 @@ h1,h2,h3 {
 	display: inline-block;
 	float: none;
 	margin: 30px;
-	max-height: 150px;
-	max-width: 150px;
+	max-height: 200px;
+	max-width: 200px;
+	border-radius: 20px;
 }
 #map{
     height: 300px;

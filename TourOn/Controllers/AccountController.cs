@@ -632,7 +632,7 @@ namespace TourOn.Controllers
                 comment.AuthorID = User.Identity.GetUserId();
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("CurrentUserProfile");
+                return RedirectToAction("UserProfile", new { userID = comment.SubjectID });
             }
 
             return RedirectToAction("Index", "Home");
