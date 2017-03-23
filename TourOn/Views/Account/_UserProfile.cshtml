@@ -14,45 +14,53 @@
 		{
 			@Html.Partial("VenueProfile", Model.ApplicationUser)
 		}
-		@if (ViewBag.Editable == true)
-		{
-			//put edit button here
-		}
-		<!--COMMENTS SECTION-->
-        <button type="button" onclick ="showCreateCommentForm()"class="btn btn-info">New Comment</button>
-        @*@Html.ActionLink("New Comment", "Create", "Comments", new {id = Model.Id}, null)*@
-        <div id="NewCommentForm" style="display:none">
-            <button type="button" onclick="hideCreateCommentForm()" class="btn btn-info">Cancel</button>
-            @Html.Partial("_CreateNewComment", Model.Comment)
-        </div>
-        @foreach (var c in Model.Comments)
-        {
-		<div class="row comment-row">
-			<div class="col-md-2">
-                <p>
-                    @if (c.ThumbsUp == true)
-                    {
-                        <div class="vote">
-                            <img src="~/images/ThumbsUp.png" class="img-responsive" />
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="vote">
-                            <img src="~/images/ThumbsDown.png" class="img-responsive" />
-                        </div>
-                    }
-                </p>
-			</div>
+		<div class="row">
+			<!--COMMENTS SECTION-->
 			<div class="col-md-10">
-				<p><h4>@c.CommentHeader</h4></p>
-				<p>
-					@c.CommentBody
-				</p>
-                <p><!--AUTHOR--></p>
+				<button type="button" onclick="showCreateCommentForm()" class="btn btn-info">New Comment</button>
+				@*@Html.ActionLink("New Comment", "Create", "Comments", new {id = Model.Id}, null)*@
+				<div id="NewCommentForm" style="display:none">
+					<button type="button" onclick="hideCreateCommentForm()" class="btn btn-info">Cancel</button>
+					@Html.Partial("_CreateNewComment", Model.Comment)
+				</div>
+			</div>
+			<div class="col-md-2">
+				@if (ViewBag.Editable == true)
+			{
+					<div class="update-profile">
+						@Html.ActionLink("Update Profile", "EditProfile", "Account", htmlAttributes: new { @class = "btn btn-info" })
+					</div>
+			}
 			</div>
 		</div>
-        }
+		@foreach (var c in Model.Comments)
+		{
+			<div class="row comment-row">
+				<div class="col-md-2">
+					<p>
+						@if (c.ThumbsUp == true)
+						{
+							<div class="vote">
+								<img src="~/images/ThumbsUp.png" class="img-responsive" />
+							</div>
+						}
+						else
+						{
+							<div class="vote">
+								<img src="~/images/ThumbsDown.png" class="img-responsive" />
+							</div>
+						}
+					</p>
+				</div>
+				<div class="col-md-10">
+					<p><h4>@c.CommentHeader</h4></p>
+					<p>
+						@c.CommentBody
+					</p>
+					<p><!--AUTHOR--></p>
+				</div>
+			</div>
+		}
 	</div>
 </div>
 <div class="col-md-1 sidebar">
