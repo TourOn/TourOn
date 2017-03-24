@@ -14,6 +14,7 @@ namespace TourOn.Models
         //links comment to author and subject
         public string AuthorID { get; set; }
         public string SubjectID { get; set; }
+		public string Publisher { get; set; }
 
         [Required]
         public bool ThumbsUp { get; set; }

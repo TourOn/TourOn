@@ -41,13 +41,13 @@
 						@if (c.ThumbsUp == true)
 						{
 							<div class="vote">
-								<img src="~/images/ThumbsUp.png" class="img-responsive" />
+								<img src="~/images/ThumbsUp.png" class="img-responsive thumb" />
 							</div>
 						}
 						else
 						{
 							<div class="vote">
-								<img src="~/images/ThumbsDown.png" class="img-responsive" />
+								<img src="~/images/ThumbsDown.png" class="img-responsive thumb" />
 							</div>
 						}
 					</p>
@@ -57,7 +57,8 @@
 					<p>
 						@c.CommentBody
 					</p>
-					<p><!--AUTHOR--></p>
+					<p>@c.Publisher</p>
+					<p>@c.PublishDate</p>
 				</div>
 			</div>
 		}

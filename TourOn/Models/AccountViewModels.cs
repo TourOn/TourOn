@@ -67,7 +67,7 @@ namespace TourOn.Models
 
 		[Required]
 		[EmailAddress]
-		[Display(Name = "Account contact email")]
+		[Display(Name = "Account email")]
 		public string Email { get; set; }
 
 		[Required]

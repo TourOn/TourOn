@@ -630,6 +630,9 @@ namespace TourOn.Controllers
                 //                    where u.Id == userID
                 //                    select u).FirstOrDefault();
                 comment.AuthorID = User.Identity.GetUserId();
+				comment.Publisher = (from u in db.Users
+									 where u.Id == comment.AuthorID
+									 select u.Name).FirstOrDefault();
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("UserProfile", new { userID = comment.SubjectID });

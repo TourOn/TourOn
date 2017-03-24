@@ -248,6 +248,10 @@
     <Compile Include="Migrations\201703211458491_AddedProfilePicFieldsBack.Designer.cs">
       <DependentUpon>201703211458491_AddedProfilePicFieldsBack.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703231836113_AddedPublisherFieldToCommentModel.cs" />
+    <Compile Include="Migrations\201703231836113_AddedPublisherFieldToCommentModel.Designer.cs">
+      <DependentUpon>201703231836113_AddedPublisherFieldToCommentModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -383,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703211458491_AddedProfilePicFieldsBack.resx">
       <DependentUpon>201703211458491_AddedProfilePicFieldsBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703231836113_AddedPublisherFieldToCommentModel.resx">
+      <DependentUpon>201703231836113_AddedPublisherFieldToCommentModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
